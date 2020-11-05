@@ -32,73 +32,81 @@ def user_choice():
 def bool_prompt(prompt_msg):
     ret_val = input(prompt_msg)
     while ret_val not in ['1', '2', '3']:
-        print('{} is not 1, 2, or 3.'.format(ret_val))
-        input()
+        input('{} is not 1, 2, or 3.'.format(ret_val))
         menu()
         ret_val = input(prompt_msg).lower()
     return ret_val
 
 
 def computer_choice():
-    choice = str(random.randint(1, 3))
-    if choice == '1':
-        return 'Rock'
-    elif choice == '2':
-        return 'Paper'
-    else:
-        return 'Scissors'
-
-
-def selections():
-    clear()
-    print('You picked: {}'.format(user_choice()))
-    print('The computer picked: {}'.format(computer_choice()))
+    return random.choice(['Rock', 'Paper', 'Scissors'])
 
 
 def win():
-    selections()
-    print('You win!')
+    return 'You win!'
 
 
 def lose():
-    selections()
-    print('You lose!')
+    return 'You lose!'
 
 
 def draw():
-    selections()
-    print('Draw!')
+    return 'Draw!'
 
 
 def game(u_choice, c_choice):
+    clear()
+    print('You picked: {}'.format(u_choice))
+    print('The computer picked: {}'.format(c_choice))
     if u_choice == 'Rock':
         if c_choice == 'Rock':
-            draw()
+            outcome = draw()
+            print(outcome)
         elif c_choice == 'Paper':
-            lose()
+            outcome = lose()
+            print(outcome)
         else:
-            win()
+            outcome = win()
+            print(outcome)
     elif u_choice == 'Paper':
         if c_choice == 'Rock':
-            win()
+            outcome = win()
+            print(outcome)
         elif c_choice == 'Paper':
-            draw()
+            outcome = draw()
+            print(outcome)
         else:
-            lose()
+            outcome = lose()
+            print(outcome)
     elif u_choice == 'Scissors':
         if c_choice == 'Rock':
-            lose()
+            outcome = lose()
+            print(outcome)
         elif c_choice == 'Paper':
-            win()
+            outcome = win()
+            print(outcome)
         else:
-            draw()
+            outcome = draw()
+            print(outcome)
     else:
         pass
 
+    choice = input('Would you like to play again? [y/n] ').lower()
+    while choice not in ['y', 'n']:
+        input('{} is not y or n'.format(choice))
+        clear()
+        print('You picked: {}'.format(u_choice))
+        print('The computer picked: {}'.format(c_choice))
+        print(outcome)
+        choice = input('Would you like to play again? [y/n] ').lower()
+    if choice == 'n':
+        exit(0)
+
 
 def run():
-    menu()
-    game(user_choice(), computer_choice())
+    while True:
+        menu()
+        game(user_choice(), computer_choice())
 
 
 if __name__ == '__main__':
